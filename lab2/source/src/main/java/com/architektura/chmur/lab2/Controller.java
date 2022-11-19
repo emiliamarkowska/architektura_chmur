@@ -1,7 +1,7 @@
 package com.architektura.chmur.lab2;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -13,20 +13,34 @@ import java.time.format.DateTimeFormatter;
 public class Controller {
 
     @GetMapping
-    public String helloWorld() {
+    public String server(@RequestParam(required = false) String cmd, @RequestParam(required = false) String str) throws Exception {
+        if (cmd == null) {
+            return helloWorld();
+        }
+        if (cmd.equals("time") && str == null) {
+            return time();
+        }
+
+        if (cmd.equals("rev") && str != null) {
+            return reverseString(str);
+        }
+        throw new Exception();
+    }
+
+    private String helloWorld() {
         return "Hello World";
     }
 
-    @GetMapping(path = "/time")
-    public String time() {
+
+    private String time() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
         ZoneId zoneId = ZoneId.of("Europe/Warsaw");
         ZonedDateTime now = LocalDateTime.now().atZone(zoneId);
         return dtf.format(now);
     }
 
-    @GetMapping(path = "/rev/{text}")
-    public String reverseString(@PathVariable String text) {
+    private String reverseString(String text) {
         return new StringBuilder(text).reverse().toString();
     }
+
 }
