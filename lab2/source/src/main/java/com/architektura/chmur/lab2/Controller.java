@@ -13,10 +13,14 @@ import java.time.format.DateTimeFormatter;
 public class Controller {
 
     @GetMapping
-    public String server(@RequestParam(required = false) String cmd, @RequestParam(required = false) String str) throws Exception {
+    public String server(@RequestParam(required = false, value = "cmd") String cmd,
+                         @RequestParam(required = false,  value = "str") String str) throws Exception {
+        System.out.println(cmd);
+        System.out.println(str);
         if (cmd == null) {
             return helloWorld();
         }
+
         if (cmd.equals("time") && str == null) {
             return time();
         }
@@ -24,6 +28,7 @@ public class Controller {
         if (cmd.equals("rev") && str != null) {
             return reverseString(str);
         }
+
         throw new Exception();
     }
 
