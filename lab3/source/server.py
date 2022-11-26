@@ -34,7 +34,7 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             "special": special_chars
         }
 
-        return json.loads(sumamry_json)
+        return json.dumps(sumamry_json)
     
 # --- main ---
 
