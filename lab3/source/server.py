@@ -11,12 +11,12 @@ class web_server(http.server.SimpleHTTPRequestHandler):
     
     def do_GET(self):
 
-        parse_url = urlparse(self.path)
-        parse_args = parse_qs(parse_url.query)
+        path = urlparse(self.path)
+        parse_args = parse_qs(path.query)
 
         print(self.path)
         
-        if self.path == '/':
+        if path.path == '/':
             self.protocol_version = 'HTTP/1.1'
             self.send_response(200)
             self.send_header("Content-type", "text/html; charset=UTF-8")
@@ -30,22 +30,15 @@ class web_server(http.server.SimpleHTTPRequestHandler):
                 special_chars = sum(1 for c in text if not c.isdigit() and not c.isalpha())
 
                 sumamry_json = {
-                    "lowercase": lowercase,
-                    "uppercase": uppercase,
-                    "digits": digits,
-                    "special": special_chars
+                    'lowercase': lowercase,
+                    'uppercase': uppercase,
+                    'digits': digits,
+                    'special': special_chars
                 }
-
-
-                self.wfile.write(json.dump(sumamry_json))
+                self.wfile.write(str(sumamry_json).encode('utf-8'))
             
         else:
             super().do_GET()
-
-    def count_chars(self, string):
-        
-
-        return json.dumps(sumamry_json)
     
 # --- main ---
 
