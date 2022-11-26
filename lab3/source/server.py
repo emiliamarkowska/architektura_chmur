@@ -24,6 +24,7 @@ class web_server(http.server.SimpleHTTPRequestHandler):
         lowercase = sum(1 for c in string if c.islower())
         uppercase = sum(1 for c in string if c.isupper())
         digits = sum(1 for c in string if c.isdigit())
+        special_chars = sum(1 for c in string if not c.isdigit() and not c.isalpha())
     
 # --- main ---
 
