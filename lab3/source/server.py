@@ -19,6 +19,9 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(b"Hello World!\n")
         else:
             super().do_GET()
+
+    def count_chars(self, string):
+        lowercase = sum(1 for c in string if c.islower())
     
 # --- main ---
 
