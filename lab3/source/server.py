@@ -2,6 +2,7 @@
 import http.server
 import socketserver
 import os
+import json
 
 #print('source code for "http.server":', http.server.__file__)
 
@@ -25,6 +26,15 @@ class web_server(http.server.SimpleHTTPRequestHandler):
         uppercase = sum(1 for c in string if c.isupper())
         digits = sum(1 for c in string if c.isdigit())
         special_chars = sum(1 for c in string if not c.isdigit() and not c.isalpha())
+
+        sumamry_json = {
+            "lowercase": lowercase,
+            "uppercase": uppercase,
+            "digits": digits,
+            "special": special_chars
+        }
+
+        return json.loads(sumamry_json)
     
 # --- main ---
 
