@@ -22,6 +22,8 @@ class web_server(http.server.SimpleHTTPRequestHandler):
 
     def count_chars(self, string):
         lowercase = sum(1 for c in string if c.islower())
+        uppercase = sum(1 for c in string if c.isupper())
+        digits = sum(1 for c in string if c.isdigit())
     
 # --- main ---
 
